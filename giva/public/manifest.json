@@ -1,0 +1,48 @@
+{
+  "id": "/",
+  "name": "GIVA Living & Baby - Smart POS & Mobile System",
+  "short_name": "GIVA POS",
+  "description": "Android 11 Q3 Smart POS terminal and Mobile Management system with RBZ 1 USD = 40 ZiG currency conversion, real-time stock sync, 58mm thermal receipts, and quarterly P&L.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1c1917",
+  "theme_color": "#b45309",
+  "categories": [
+    "business",
+    "finance",
+    "shopping",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Q3 POS",
+      "url": "/pos"
+    },
+    {
+      "name": "Store Manager",
+      "url": "/manager"
+    }
+  ]
+}

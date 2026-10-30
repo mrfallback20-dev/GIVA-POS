@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Stock inventory item with barcode, pricing in USD and ZiG, and quantities",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "barcode": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "sizeVariant": { "type": "string" },
+        "costPrice": { "type": "number" },
+        "costPriceUsd": { "type": "number" },
+        "sellingPrice": { "type": "number" },
+        "sellingPriceUsd": { "type": "number" },
+        "sellingPriceZig": { "type": "number" },
+        "stockQuantity": { "type": "number" },
+        "imageUrl": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["barcode", "name", "sellingPriceUsd", "stockQuantity"]
+    },
+    "SaleTransaction": {
+      "title": "SaleTransaction",
+      "description": "Completed POS checkout transaction record with line items and currency snapshot",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "totalAmount": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["CASH", "CARD", "SPLIT", "MOBILE_MONEY"] },
+        "amountTendered": { "type": "number" },
+        "changeAmount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["USD", "ZiG"] },
+        "bankRate": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "items": { "type": "array" }
+      },
+      "required": ["totalAmount", "paymentMethod", "currency", "bankRate", "createdAt", "items"]
+    },
+    "ExpenseItem": {
+      "title": "ExpenseItem",
+      "description": "Operating overhead store expense entry for quarterly P&L",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["USD", "ZiG"] },
+        "expenseDate": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["description", "amount", "expenseDate", "category"]
+    },
+    "StoreSettings": {
+      "title": "StoreSettings",
+      "description": "Global store configuration including official RBZ bank rate",
+      "type": "object",
+      "properties": {
+        "bankRate": { "type": "number" },
+        "currencyPair": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["bankRate"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Store inventory products catalog"
+    },
+    "/sales/{saleId}": {
+      "schema": "SaleTransaction",
+      "description": "Completed point of sale transactions"
+    },
+    "/expenses/{expenseId}": {
+      "schema": "ExpenseItem",
+      "description": "Store operating expenses records"
+    },
+    "/settings/{settingId}": {
+      "schema": "StoreSettings",
+      "description": "System settings such as the official ZiG bank rate"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix GIVA Living \u0026 Baby - Dual App Suite \u0026 Live Preview",
+  "description": "Interactive preview and live suite for GIVA Q3 Smart POS Terminal and Mobile Store Management with P\u0026L tracking, multi-currency USD \u0026 ZiG support, and offline sync.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

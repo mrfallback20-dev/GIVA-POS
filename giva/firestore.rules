@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Every device signs in anonymously (see src/firebase.ts), so the database is no
+    // longer open to the whole internet. NOTE: the app PINs are a convenience lock on the
+    // device; they are not server-side accounts.
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    match /products/{productId} {
+      allow read: if signedIn();
+      allow create, update: if signedIn()
+        && request.resource.data.name is string
+        && request.resource.data.stockQuantity is number;
+      allow delete: if signedIn();
+    }
+
+    // Sales are an append-only audit log.
+    match /sales/{saleId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.totalAmount is number
+        && request.resource.data.items is list
+        && request.resource.data.items.size() > 0;
+      allow update, delete: if false;
+    }
+
+    match /expenses/{expenseId} {
+      allow read, write: if signedIn();
+    }
+
+    match /settings/{settingId} {
+      allow read: if signedIn();
+      allow write: if signedIn()
+        && (settingId != 'bankRate'
+            || (request.resource.data.bankRate is number && request.resource.data.bankRate > 0));
+    }
+  }
+}
